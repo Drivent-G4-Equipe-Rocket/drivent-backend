@@ -13,16 +13,6 @@ export async function getTicketTypes(req: AuthenticatedRequest, res: Response) {
   }
 }
 
-export async function getTicketPaid(req: AuthenticatedRequest, res: Response) {
-  try {
-    const ticketPaid = await ticketService.getTicketPaid();
-
-    return res.status(httpStatus.OK).send(ticketPaid);
-  } catch (error) {
-    return res.sendStatus(httpStatus.NO_CONTENT);
-  }
-}
-
 export async function getTickets(req: AuthenticatedRequest, res: Response) {
   const { userId } = req;
 
