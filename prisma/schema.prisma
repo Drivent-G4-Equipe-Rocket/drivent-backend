@@ -138,3 +138,21 @@ model Booking {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+model Activity {
+  id        Int      @id @default(autoincrement())
+  name      String   @db.VarChar(255)
+  date      DateTime @db.Date
+  startAt   DateTime @map("startAt") @db.Time(4)
+  endAt     DateTime @map("endAt") @db.Time(4)
+  location  ActivityLocation
+  vacancies Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum ActivityLocation {
+  AUDITORIO_PRINCIPAL
+  AUDITORIO_LATERAL
+  SALA_DE_WORKSHOP
+}
