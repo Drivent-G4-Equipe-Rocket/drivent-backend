@@ -5,15 +5,18 @@ import activityService from "@/services/activities-service";
 
 export async function listActivities(req: AuthenticatedRequest, res: Response) {
   const { userId } = req;
+  console.log("entrou no controller listActivities");
 
   try {
     const activities = await activityService.getActivities(Number(userId));
     return res.status(httpStatus.OK).send(activities);
   } catch (error) {
+    console.log(`entrou em error com error: ${error}`);
     if (error.name === "NotFoundError") {
       return res.sendStatus(httpStatus.NOT_FOUND);
     }
     if (error.name === "cannotListActivitiesError") {
+      console.log("entrou no erro cannotListActivitiesError");
       return res.sendStatus(httpStatus.PAYMENT_REQUIRED);
     }
     return res.sendStatus(httpStatus.BAD_REQUEST);
@@ -24,7 +27,7 @@ export async function listActivityDates(req: AuthenticatedRequest, res: Response
   const { userId } = req;
 
   try {
-    const dates = activityService.getDates(userId);
+    const dates = await activityService.getDates(userId);
     return res.status(httpStatus.OK).send(dates);
   } catch (error) {
     if (error.name === "NotFoundError") {
