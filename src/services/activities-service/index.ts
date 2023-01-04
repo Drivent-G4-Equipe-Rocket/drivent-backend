@@ -21,12 +21,22 @@ async function listActivities(userId: number) {
 async function getActivities(userId: number) {
   listActivities(userId);
 
-  const activities = activityRepository.findActivities();
+  const activities = await activityRepository.findActivities();
   return activities;
 }
 
+async function getDates(userId: number) {
+  listActivities(userId);
+
+  const activitiesDates = await activityRepository.findActivitiesDates();
+  const dates = [...new Set(activitiesDates)];
+
+  return dates;
+}
+
 const activityService = {
-  getActivities
+  getActivities,
+  getDates
 };
 
 export default activityService;

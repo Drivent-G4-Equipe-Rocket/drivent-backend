@@ -5,8 +5,15 @@ async function findActivities() {
   return prisma.activity.findMany();
 }
 
+async function findActivitiesDates() {
+  return prisma.activity.findMany({
+    select: { date: true }
+  });  
+}
+
 const activityRepository = {
-  findActivities
+  findActivities,
+  findActivitiesDates
 };
 
 export default activityRepository;
