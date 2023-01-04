@@ -20,14 +20,14 @@ async function listActivities(userId: number) {
 }
 
 async function getActivities(userId: number) {
-  listActivities(userId);
+  await listActivities(userId);
 
   const activities = await activityRepository.findActivities();
   return activities;
 }
 
 async function getDates(userId: number) {
-  listActivities(userId);
+  await listActivities(userId);
 
   const activitiesDates = await activityRepository.findActivitiesDates();
   const dates = [...new Set(activitiesDates)];
