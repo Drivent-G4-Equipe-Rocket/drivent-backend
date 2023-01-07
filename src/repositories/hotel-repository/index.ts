@@ -21,7 +21,6 @@ async function findHotelsWithRooms() {
         include: {
           Booking: {
             select: {
-              id: true,
               roomId: true,
             }
           }
