@@ -6,6 +6,12 @@ async function findActivities() {
   return prisma.activity.findMany();
 }
 
+async function findActivity(activityId: number) {
+  return prisma.activity.findUnique({
+    where: { id: activityId }
+  });
+}
+
 async function findActivitiesDates() {
   return prisma.activity.findMany({
     select: { date: true }
@@ -23,10 +29,21 @@ async function createSchedule({ userId, activityId }: CreateParams): Promise<Sch
   });
 }
 
+async function findSchedule(userId: number, activityId: number) {
+  return prisma.schedule.findFirst({
+    where: {
+      userId,
+      activityId
+    }
+  });
+}
+
 const activityRepository = {
   findActivities,
+  findActivity,
   findActivitiesDates,
-  createSchedule
+  createSchedule,
+  findSchedule
 };
 
 export default activityRepository;

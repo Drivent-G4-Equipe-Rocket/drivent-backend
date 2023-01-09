@@ -1,7 +1,7 @@
 import activityRepository from "@/repositories/activity-repository";
 import enrollmentRepository from "@/repositories/enrollment-repository";
 import ticketRepository from "@/repositories/ticket-repository";
-import { notFoundError, cannotListActivitiesError } from "@/errors";
+import { notFoundError, cannotListActivitiesError, cannotSubscribeToActivityError } from "@/errors";
 
 async function listActivities(userId: number) {
   //Tem enrollment?
@@ -34,6 +34,15 @@ async function getDates(userId: number) {
 
 async function postActivities(userId: number, activityId: number) {
   await listActivities(userId);
+  const activity = await activityRepository.findActivity(activityId);
+  if(activity.vacancies <= 0) {
+    throw cannotSubscribeToActivityError();
+  }
+
+  const schedule = await activityRepository.findSchedule(userId, activityId);
+  if(schedule) {
+    throw cannotSubscribeToActivityError();
+  }
   
   return activityRepository.createSchedule({ userId, activityId });
 }
