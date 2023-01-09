@@ -47,7 +47,7 @@ async function createTicket(userId: number, ticketTypeId: number) {
 const ticketService = {
   getTicketTypes,
   getTicketByUserId,
-  createTicket,
+  createTicket
 };
 
 export default ticketService;
