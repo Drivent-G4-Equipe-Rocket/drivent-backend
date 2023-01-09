@@ -35,9 +35,16 @@ async function getDates(userId: number) {
   return dates;
 }
 
+async function postActivities(userId: number, activityId: number) {
+  await listActivities(userId);
+  
+  return activityRepository.createSchedule({ userId, activityId });
+}
+
 const activityService = {
   getActivities,
-  getDates
+  getDates, 
+  postActivities
 };
 
 export default activityService;

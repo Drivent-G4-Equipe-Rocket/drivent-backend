@@ -39,3 +39,15 @@ export async function listActivityDates(req: AuthenticatedRequest, res: Response
     return res.sendStatus(httpStatus.BAD_REQUEST);
   }
 }
+
+export async function writeActivities(req: AuthenticatedRequest, res: Response) {
+  const { userId } = req;
+  const { activityId } = req.body;
+
+  try {
+    await activityService.postActivities(userId, activityId);
+    return res.sendStatus(httpStatus.CREATED);
+  } catch (error) {
+    return res.sendStatus(httpStatus.BAD_REQUEST);
+  }
+}
