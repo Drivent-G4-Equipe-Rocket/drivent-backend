@@ -32,6 +32,13 @@ async function getDates(userId: number) {
   return dates;
 }
 
+async function getSchedules(userId: number) {
+  await listActivities(userId);
+
+  const schedules = await activityRepository.findSchedules(userId);
+  return schedules;
+}
+
 async function postActivities(userId: number, activityId: number) {
   await listActivities(userId);
   const activity = await activityRepository.findActivity(activityId);
@@ -50,6 +57,7 @@ async function postActivities(userId: number, activityId: number) {
 const activityService = {
   getActivities,
   getDates, 
+  getSchedules,
   postActivities
 };
 

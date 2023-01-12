@@ -18,6 +18,12 @@ async function findActivitiesDates() {
   });  
 }
 
+async function findSchedules(userId: number) {
+  return prisma.schedule.findMany({
+    where: { userId }
+  });
+}
+
 type CreateParams = Omit<Schedule, "id" | "createdAt" | "updatedAt">;
 
 async function createSchedule({ userId, activityId }: CreateParams): Promise<Schedule> {
@@ -42,6 +48,7 @@ const activityRepository = {
   findActivities,
   findActivity,
   findActivitiesDates,
+  findSchedules,
   createSchedule,
   findSchedule
 };
