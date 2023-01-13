@@ -35,6 +35,17 @@ async function createSchedule({ userId, activityId }: CreateParams): Promise<Sch
   });
 }
 
+async function updateActivitiy(activityId: number) {
+  return prisma.activity.update({
+    where: {
+      id: activityId
+    },
+    data: {
+      vacancies: { decrement: 1 }
+    }
+  });
+}
+
 async function findSchedule(userId: number, activityId: number) {
   return prisma.schedule.findFirst({
     where: {
@@ -50,6 +61,7 @@ const activityRepository = {
   findActivitiesDates,
   findSchedules,
   createSchedule,
+  updateActivitiy,
   findSchedule
 };
 
