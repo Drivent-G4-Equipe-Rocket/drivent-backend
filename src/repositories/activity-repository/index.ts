@@ -15,7 +15,7 @@ async function findActivity(activityId: number) {
 async function findActivitiesDates() {
   return prisma.activity.findMany({
     select: { date: true }
-  });  
+  });
 }
 
 async function findSchedules(userId: number) {
