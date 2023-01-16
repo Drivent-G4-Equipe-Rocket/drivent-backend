@@ -51,6 +51,7 @@ async function postActivities(userId: number, activityId: number) {
     throw cannotSubscribeToActivityError();
   }
   
+  await activityRepository.updateActivitiy(activityId);
   return activityRepository.createSchedule({ userId, activityId });
 }
 
